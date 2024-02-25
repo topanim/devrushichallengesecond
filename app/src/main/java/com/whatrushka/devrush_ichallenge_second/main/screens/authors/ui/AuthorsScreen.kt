@@ -12,14 +12,23 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.whatrushka.devrush_ichallenge_second.main.Route
+import com.whatrushka.devrush_ichallenge_second.main.controller.Controller
+import com.whatrushka.devrush_ichallenge_second.main.controller.Controller.model
 import com.whatrushka.devrush_ichallenge_second.main.controller.Controller.search
 import com.whatrushka.devrush_ichallenge_second.main.data.models.Author
 
 
 @Composable
-fun AuthorsScreen(source: List<Author>) {
+fun AuthorsScreen(navController: NavController) {
     var data = remember {
-        source.toMutableStateList()
+        model.toMutableStateList()
+    }
+
+    val onSelect = {author: Author ->
+        Controller.select(author)
+        navController.navigate(Route.Works.name)
     }
 
     Column(
@@ -30,7 +39,7 @@ fun AuthorsScreen(source: List<Author>) {
         Spacer(modifier = Modifier.height(16.dp))
         LazyColumn {
             items(data.size, { i -> data[i].image }) {
-                AuthorItem(author = data[it])
+                AuthorItem(author = data[it], onClick = onSelect)
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }

@@ -2,6 +2,7 @@ package com.whatrushka.devrush_ichallenge_second.main.screens.authors.ui
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,10 +26,11 @@ import androidx.compose.ui.unit.sp
 import com.whatrushka.devrush_ichallenge_second.main.data.models.Author
 
 @Composable
-fun AuthorItem(author: Author) {
+fun AuthorItem(author: Author, onClick: (Author) -> Unit) {
     Box(modifier = Modifier
         .fillMaxWidth()
         .clip(RoundedCornerShape(15.dp))
+        .clickable(onClick= { onClick(author) })
     ) {
         Row {
             Image(
